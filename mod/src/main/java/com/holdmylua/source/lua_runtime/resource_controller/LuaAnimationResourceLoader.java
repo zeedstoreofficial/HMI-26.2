@@ -1,5 +1,6 @@
 package com.holdmylua.source.lua_runtime.resource_controller;
 
+import com.holdmylua.source.config.HmiConfig;
 import com.holdmylua.source.global.GlobalsStorage;
 import com.holdmylua.source.lua_runtime.LuaScriptCache;
 import com.holdmylua.source.lua_runtime.ModelScriptCache;
@@ -36,11 +37,18 @@ public class LuaAnimationResourceLoader implements SimpleSynchronousResourceRelo
             if (!respackoptsLoaded) {
                Matcher placeholderMatcher = placeholderPattern.matcher(line);
                StringBuffer placeholderBuffer = new StringBuffer();
-
+               HmiConfig config = HmiConfig.getInstance();
                while (placeholderMatcher.find()) {
-                  placeholderMatcher.appendReplacement(placeholderBuffer, "0");
+                  String placeholder = placeholderMatcher.group(1);
+                  String replacement = switch (placeholder) {
+                     case "xOffset" -> String.valueOf(config.xOffset);
+                     case "yOffset" -> String.valueOf(config.yOffset);
+                     case "zOffset" -> String.valueOf(config.zOffset);
+                     case "inspectKeybind" -> String.valueOf(config.inspectKeyCode);
+                     default -> "0";
+                  };
+                  placeholderMatcher.appendReplacement(placeholderBuffer, Matcher.quoteReplacement(replacement));
                }
-
                placeholderMatcher.appendTail(placeholderBuffer);
                line = placeholderBuffer.toString();
             }

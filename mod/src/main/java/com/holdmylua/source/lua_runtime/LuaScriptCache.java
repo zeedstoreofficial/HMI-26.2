@@ -60,6 +60,7 @@ public class LuaScriptCache {
       this.globals.set("S", CoerceJavaToLua.coerce(this.sInstance));
       this.globals.set("C", CoerceJavaToLua.coerce(this.cInstance));
       this.globals.set("particleManager", CoerceJavaToLua.coerce(this.particleManagerInstance));
+      this.globals.set("Config", CoerceJavaToLua.coerce(com.holdmylua.source.config.HmiConfig.getInstance()));
       this.globals.set("swingSpeed", LuaValue.valueOf(swingSpeed));
       this.globals.set("registry", CoerceJavaToLua.coerce(GlobalsStorage.registry));
       this.globals.set("renderAsBlock", CoerceJavaToLua.coerce(GlobalsStorage.renderAsBlock));

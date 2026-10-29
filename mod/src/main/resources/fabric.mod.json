@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "com.holdmylua.source.LuaTestHMI"
+    ],
+    "modmenu": [
+      "com.holdmylua.source.compat.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -27,6 +30,9 @@
     "minecraft": "~26.2",
     "java": ">=25",
     "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
   },
   "jars": [
     {

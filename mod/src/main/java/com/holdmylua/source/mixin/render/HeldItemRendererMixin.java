@@ -1,5 +1,6 @@
 package com.holdmylua.source.mixin.render;
 
+import com.holdmylua.source.config.HmiConfig;
 import com.holdmylua.source.LuaTestHMI;
 import com.holdmylua.source.access.AlternateBlockRenderer;
 import com.holdmylua.source.access.ItemStackAccessor;
@@ -150,6 +151,31 @@ public abstract class HeldItemRendererMixin {
       matrices.mulPose(Axis.YP.rotationDegrees(f * -135.0F));
       matrices.translate(f * 5.6F, 0.0F, 0.0F);
    }
+   @Unique
+   private static void applySixAxis(PoseStack matrices, HmiConfig config, boolean mainHand, int l) {
+      double x = mainHand ? config.getMainItemX() : config.getOffItemX();
+      double y = mainHand ? config.getMainItemY() : config.getOffItemY();
+      double z = mainHand ? config.getMainItemZ() : config.getOffItemZ();
+      double pitch = mainHand ? config.getMainItemPitch() : config.getOffItemPitch();
+      double yaw = mainHand ? config.getMainItemYaw() : config.getOffItemYaw();
+      double roll = mainHand ? config.getMainItemRoll() : config.getOffItemRoll();
+      double scale = mainHand ? config.getMainItemScale() : config.getOffItemScale();
+      if (x != 0.0 || y != 0.0 || z != 0.0) {
+         matrices.translate(x * (double)l, y, z);
+      }
+      if (pitch != 0.0) {
+         matrices.mulPose(Axis.XP.rotationDegrees((float)pitch));
+      }
+      if (yaw != 0.0) {
+         matrices.mulPose(Axis.YP.rotationDegrees((float)(yaw * (double)l)));
+      }
+      if (roll != 0.0) {
+         matrices.mulPose(Axis.ZP.rotationDegrees((float)(roll * (double)l)));
+      }
+      if (scale != 1.0 && scale > 0.01) {
+         matrices.scale((float)scale, (float)scale, (float)scale);
+      }
+   }
 
    @Unique
    private void itemPose(
@@ -172,6 +198,7 @@ public abstract class HeldItemRendererMixin {
       List<Particle> particles
    ) throws ScriptException, NoSuchMethodException {
       int l = bl ? 1 : -1;
+      applySixAxis(matrices, HmiConfig.getInstance(), mainHand, l);
       matrices.translate(0.5 * l, -0.15, -0.85);
       matrices.rotateAround(Axis.XP.rotationDegrees(15.0F), 0.5F, 0.5F, 0.5F);
       matrices.scale(0.9F, 0.9F, 0.9F);

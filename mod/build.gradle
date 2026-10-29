@@ -40,6 +40,14 @@ processResources {
 		expand "version": version
 	}
 }
+jar {
+	exclude 'com/terraformersmc/**'
+}
+
+tasks.matching { it.name == 'sourcesJar' }.configureEach {
+	exclude 'com/terraformersmc/**'
+}
+
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 25
