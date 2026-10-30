@@ -6,6 +6,10 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+	maven {
+		name = 'TerraformersMC'
+		url = 'https://maven.terraformersmc.com/releases/'
+	}
 }
 
 loom {
@@ -30,6 +34,8 @@ dependencies {
 	// via src/main/resources/META-INF/jars + the "jars" entry in fabric.mod.json
 	// (loom's include cannot nest plain file dependencies).
 	implementation files("libs/luaj-jse-3.0.1.jar")
+	compileOnly "com.terraformersmc:modmenu:20.0.3"
+	localRuntime "com.terraformersmc:modmenu:20.0.3"
 }
 
 processResources {
