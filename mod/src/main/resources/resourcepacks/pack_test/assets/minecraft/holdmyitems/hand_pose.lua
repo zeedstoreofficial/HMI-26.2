@@ -240,8 +240,8 @@ end
 inWaterCount = M:clamp(inWaterCount, 0, 1)
 
 
-local xOffset = ${xOffset}
-M:translate(mat, ${xOffset} * l, ${yOffset}, ${zOffset})
+local xOffset = Config:getXOffset()
+M:translate(mat, xOffset * l, Config:getYOffset(), Config:getZOffset())
 tilting = tilting + context.swingProgress * context.deltaTime * 3
 
 if not I:isEmpty(context.item) then
@@ -1377,7 +1377,7 @@ M:rotateX(mat, -5, 0.3 * l, -0.4, 0)
 M:rotateY(mat, 20 * l, 0.3 * l, -0.4, 0)
 end
 
-if KeyBindManager:isKeyPressed(${inspectKeybind} ~= 0 and ${inspectKeybind} or 67) then
+if KeyBindManager:isKeyPressed(Config:getInspectKey()) then
 inspectionCounter = inspectionCounter + 0.04 * context.deltaTime * 30
 else
 inspectionCounter = inspectionCounter - 0.04 * context.deltaTime * 30

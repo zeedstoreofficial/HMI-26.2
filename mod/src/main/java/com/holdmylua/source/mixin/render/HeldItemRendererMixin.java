@@ -419,6 +419,10 @@ public abstract class HeldItemRendererMixin {
       SubmitNodeCollector orderedRenderCommandQueue,
       int light
    ) throws ScriptException, NoSuchMethodException {
+      if (!HmiConfig.getInstance().enabled) {
+         this.submitArmWithItem(player, tickProgress, pitch, hand, swingProgress, item, equipProgress, matrices, orderedRenderCommandQueue, light);
+         return;
+      }
       if (!player.isScoping()) {
          ((ItemStackAccessor)(Object)item).hMI5_0$setTransform(-1);
          boolean bl = hand == InteractionHand.MAIN_HAND;

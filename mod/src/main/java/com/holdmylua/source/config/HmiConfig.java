@@ -39,7 +39,7 @@ public class HmiConfig {
     public double offItemScale = 1.0; // 0.1 to 3.0 (default 1.0)
     public String inspectKeyName = "J";
     public int inspectKeyCode = 74; // GLFW legacy code (J)
-    public int inspectScancode = 13; // SDL scancode (KEY_J)
+    public int inspectScancode = 74;
 
     public static HmiConfig getInstance() {
         if (INSTANCE == null) {

@@ -217,9 +217,8 @@ public class HmiConfigScreen extends Screen {
                     this.keybindButton.setMessage(getKeybindButtonMessage());
                     return true;
                 }
-                this.config.inspectScancode = key.getValue();
+                this.config.inspectKeyCode = key.getValue();
                 this.config.inspectKeyName = key.getDisplayName().getString();
-                this.config.inspectKeyCode = KeyBindManager.scancodeToLegacyKey(key.getValue());
                 this.config.save();
                 this.isListeningForKey = false;
                 this.keybindButton.setMessage(getKeybindButtonMessage());

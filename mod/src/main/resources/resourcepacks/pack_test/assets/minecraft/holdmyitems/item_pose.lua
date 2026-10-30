@@ -628,7 +628,7 @@ if I:isOf(context.item, Items:get("minecraft:brewing_stand")) or I:isOf(context.
 end
 
 
-if KeyBindManager:isKeyPressed(${inspectKeybind} ~= 0 and ${inspectKeybind} or 67) then
+if KeyBindManager:isKeyPressed(Config:getInspectKey()) then
 inspectionSpin = inspectionSpin + 0.025 * context.deltaTime * 30
 else
 inspectionSpin = 0
